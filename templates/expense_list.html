@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h3 class="total">Total: ₹{{ total }}</h3>
+
+<table>
+<tr>
+    <th>Title</th>
+    <th>Amount</th>
+    <th>Category</th>
+    <th>Date</th>
+    <th>Actions</th>
+</tr>
+{% for expense in expenses %}
+<tr>
+    <td>{{ expense.title }}</td>
+    <td>{{ expense.amount }}</td>
+    <td>{{ expense.category }}</td>
+    <td>{{ expense.date }}</td>
+    <td>
+        <a href="{% url 'edit_expense' expense.id %}">Edit</a> |
+        <a href="{% url 'delete_expense' expense.id %}">Delete</a>
+    </td>
+</tr>
+{% endfor %}
+</table>
+
+{% endblock %}
