@@ -6,7 +6,7 @@ SECRET_KEY = 'django-insecure-secretkey'
 
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -68,4 +68,10 @@ LOGIN_URL = 'login'
 LOGIN_REDIRECT_URL = 'expense_list'
 LOGOUT_REDIRECT_URL = 'login'
 
+STATIC_URL = '/static/'
+STATIC_ROOT = BASE_DIR / 'staticfiles'
+
+LOGIN_URL = 'login'
+LOGIN_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = 'login'
 
