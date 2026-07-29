@@ -1,7 +1,25 @@
-{% extends 'base.html' %} 
+{% extends 'base.html' %}
 {% block content %}
-<h2>Add Expense</h2> 
-<form method="post"> {% csrf_token %} {{ form.as_p }} <button type="submit">Save</button>
-<a href="{% url 'add_category' %}">+ Add New Category</a>
-</form>
- {% endblock %}
+
+<div class="form-page">
+    <a href="{% url 'expense_list' %}" class="back-link">← Back to Dashboard</a>
+
+    <div class="form-card">
+        <div class="form-card-header">
+            <h2>Add Expense</h2>
+            <p>Record a new transaction to your tracker</p>
+        </div>
+        <div class="form-card-body">
+            <form method="post">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <div class="form-actions">
+                    <button type="submit">Save Expense →</button>
+                    <a href="{% url 'add_category' %}" class="quick-link">⊕ Add New Category</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

@@ -1,12 +1,24 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<h2>Add Category</h2>
+<div class="form-page">
+    <a href="{% url 'add_expense' %}" class="back-link">← Back to Add Expense</a>
 
-<form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Save Category</button>
-</form>
+    <div class="form-card">
+        <div class="form-card-header">
+            <h2>Add Category</h2>
+            <p>Create a new spending category</p>
+        </div>
+        <div class="form-card-body">
+            <form method="post">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <div class="form-actions">
+                    <button type="submit">Save Category →</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 
 {% endblock %}

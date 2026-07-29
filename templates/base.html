@@ -1,27 +1,92 @@
 {% load static %}
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Expense Tracker</title>
-    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SpendWise — Expense Tracker</title>
+    <meta name="description" content="Track your expenses smartly with SpendWise.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}?v=6">
 </head>
 <body>
 
-<div class="container">
-    <div class="card">
-
-        {% if user.is_authenticated %}
-        <div class="nav">
-            <a href="{% url 'expense_list' %}">Home</a>
-            <a href="{% url 'add_expense' %}">Add Expense</a>
-            <a href="{% url 'logout' %}">Logout</a>
-        </div>
-        {% endif %}
+{% if user.is_authenticated %}
+    <div class="app-wrapper">
+        <nav class="navbar">
+            <a href="{% url 'expense_list' %}" class="navbar-brand">
+                <div class="n-logo">💸</div>
+                <span class="n-name">SpendWise</span>
+            </a>
+            <div class="navbar-links">
+                <a href="{% url 'expense_list' %}">Dashboard</a>
+                <a href="{% url 'add_expense' %}">Add Expense</a>
+                <a href="{% url 'add_category' %}">Categories</a>
+            </div>
+            <a href="{% url 'logout' %}" class="navbar-logout">Sign out →</a>
+        </nav>
+        <main class="main-content">
+{% else %}
+    <div class="auth-page">
+{% endif %}
 
         {% block content %}{% endblock %}
 
+{% if user.is_authenticated %}
+        </main>
     </div>
-</div>
+{% else %}
+    </div>
+{% endif %}
+
+<!-- ========== PASSWORD TOGGLE SCRIPT ========== -->
+<script>
+(function () {
+    const EYE_OPEN = `<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+        <circle cx="12" cy="12" r="3"/>
+    </svg>`;
+
+    const EYE_CLOSED = `<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path d="M17.94 17.94A10.07 10.07 0 0112 20c-7 0-11-8-11-8a18.45 18.45 0 015.06-5.94"/>
+        <path d="M9.9 4.24A9.12 9.12 0 0112 4c7 0 11 8 11 8a18.5 18.5 0 01-2.16 3.19"/>
+        <path d="M14.12 14.12a3 3 0 01-4.24-4.24"/>
+        <line x1="1" y1="1" x2="23" y2="23"/>
+    </svg>`;
+
+    document.addEventListener('DOMContentLoaded', function () {
+        const pwdInputs = document.querySelectorAll('input[type="password"]');
+
+        pwdInputs.forEach(function (input) {
+            // Wrap the input in a relative container
+            const wrapper = document.createElement('div');
+            wrapper.className = 'password-wrapper';
+            input.parentNode.insertBefore(wrapper, input);
+            wrapper.appendChild(input);
+
+            // Create the toggle button
+            const btn = document.createElement('button');
+            btn.type = 'button';
+            btn.className = 'pwd-toggle';
+            btn.setAttribute('aria-label', 'Toggle password visibility');
+            btn.innerHTML = EYE_OPEN;
+            wrapper.appendChild(btn);
+
+            let visible = false;
+
+            btn.addEventListener('click', function () {
+                visible = !visible;
+                input.type = visible ? 'text' : 'password';
+                btn.innerHTML = visible ? EYE_CLOSED : EYE_OPEN;
+                btn.setAttribute('aria-label', visible ? 'Hide password' : 'Show password');
+                input.focus();
+            });
+        });
+    });
+})();
+</script>
 
 </body>
 </html>

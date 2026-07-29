@@ -1,5 +1,24 @@
 {% extends 'base.html' %}
 {% block content %}
-<h2>Edit Expense</h2>
-<form method="post">{% csrf_token %}{{ form.as_p }}<button>Update</button></form>
+
+<div class="form-page">
+    <a href="{% url 'expense_list' %}" class="back-link">← Back to Dashboard</a>
+
+    <div class="form-card">
+        <div class="form-card-header">
+            <h2>Edit Expense</h2>
+            <p>Update the details of this transaction</p>
+        </div>
+        <div class="form-card-body">
+            <form method="post">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <div class="form-actions">
+                    <button type="submit">Update Expense →</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
 {% endblock %}

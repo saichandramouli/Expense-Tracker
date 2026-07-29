@@ -1,6 +1,26 @@
 {% extends 'base.html' %}
 {% block content %}
-<h2>Login</h2>
-<form method="post">{% csrf_token %}{{ form.as_p }}<button>Login</button></form>
-<a href="{% url 'register' %}">Register</a>
+
+<div class="auth-card">
+    <div class="auth-logo">
+        <div class="logo-mark">💸</div>
+        <h1>SpendWise</h1>
+        <p>Your intelligent expense tracker</p>
+    </div>
+
+    <h2>Welcome back</h2>
+    <p class="auth-subtitle">Sign in to your account to continue</p>
+
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <div class="form-actions">
+            <button type="submit">Sign In →</button>
+            <a href="{% url 'register' %}" class="form-link">
+                Don't have an account? <strong>Create one</strong>
+            </a>
+        </div>
+    </form>
+</div>
+
 {% endblock %}

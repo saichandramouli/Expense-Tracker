@@ -1,5 +1,26 @@
 {% extends 'base.html' %}
 {% block content %}
-<h2>Register</h2>
-<form method="post">{% csrf_token %}{{ form.as_p }}<button>Register</button></form>
+
+<div class="auth-card">
+    <div class="auth-logo">
+        <div class="logo-mark">💸</div>
+        <h1>SpendWise</h1>
+        <p>Your intelligent expense tracker</p>
+    </div>
+
+    <h2>Create account</h2>
+    <p class="auth-subtitle">Start tracking your expenses today — it's free</p>
+
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <div class="form-actions">
+            <button type="submit">Create Account →</button>
+            <a href="{% url 'login' %}" class="form-link">
+                Already have an account? <strong>Sign in</strong>
+            </a>
+        </div>
+    </form>
+</div>
+
 {% endblock %}
