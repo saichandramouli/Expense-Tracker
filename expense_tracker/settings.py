@@ -1,11 +1,15 @@
 from pathlib import Path
+import os
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-SECRET_KEY = 'django-insecure-secretkey'
+# Use environment variable for SECRET_KEY in production
+SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'django-insecure-secretkey')
 
-DEBUG = True
+# Set DEBUG=False in production via env variable
+DEBUG = os.environ.get('DEBUG', 'False') == 'True'
 
+# Add your EC2 public IP and domain here after deployment
 ALLOWED_HOSTS = ['*']
 
 INSTALLED_APPS = [
@@ -28,7 +32,6 @@ MIDDLEWARE = [
 ]
 
 APPEND_SLASH = True
-
 
 ROOT_URLCONF = 'expense_tracker.urls'
 
@@ -59,19 +62,14 @@ DATABASES = {
 
 LANGUAGE_CODE = 'en-us'
 TIME_ZONE = 'UTC'
+
+# Static files
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [BASE_DIR / 'static']
+STATIC_ROOT = BASE_DIR / 'staticfiles'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 LOGIN_URL = 'login'
-LOGIN_REDIRECT_URL = 'expense_list'
-LOGOUT_REDIRECT_URL = 'login'
-
-STATIC_URL = '/static/'
-STATIC_ROOT = BASE_DIR / 'staticfiles'
-
-LOGIN_URL = 'login'
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = 'login'
-
