@@ -3,15 +3,16 @@ import os
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-# Use environment variable for SECRET_KEY in production
+# ─── SECRET KEY ───────────────────────────────────────────────
 SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'django-insecure-secretkey')
 
-# Set DEBUG=False in production via env variable
+# ─── DEBUG ────────────────────────────────────────────────────
 DEBUG = os.environ.get('DEBUG', 'False') == 'True'
 
-# Add your EC2 public IP and domain here after deployment
+# ─── HOSTS ────────────────────────────────────────────────────
 ALLOWED_HOSTS = ['*']
 
+# ─── APPS ─────────────────────────────────────────────────────
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -22,8 +23,11 @@ INSTALLED_APPS = [
     'expenses',
 ]
 
+# ─── MIDDLEWARE ───────────────────────────────────────────────
+# WhiteNoise must come right after SecurityMiddleware
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',       # ← serves static files
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -53,6 +57,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'expense_tracker.wsgi.application'
 
+# ─── DATABASE ─────────────────────────────────────────────────
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
@@ -60,14 +65,19 @@ DATABASES = {
     }
 }
 
+# ─── INTERNATIONALISATION ─────────────────────────────────────
 LANGUAGE_CODE = 'en-us'
 TIME_ZONE = 'UTC'
 
-# Static files
+# ─── STATIC FILES ─────────────────────────────────────────────
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [BASE_DIR / 'static']
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 
+# WhiteNoise compression + caching
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
+# ─── MISC ─────────────────────────────────────────────────────
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 LOGIN_URL = 'login'

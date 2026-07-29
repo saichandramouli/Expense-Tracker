@@ -9,6 +9,7 @@ djangorestframework==3.16.1
 executing==2.2.1
 filelock==3.19.1
 gunicorn==25.0.1
+whitenoise==6.9.0
 ipython==9.6.0
 ipython_pygments_lexers==1.1.1
 jedi==0.19.2
